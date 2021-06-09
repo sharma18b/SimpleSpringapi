@@ -1,6 +1,7 @@
 # SimpleSpringapi
 A simple Spring application to complete basic get and post request
-
+here are some ss of the final app that was created
+![Alt text](https://github.com/sharma18b/SimpleSpringapi/blob/fnl_app_with_swagger_ui/screenshots/homepage.png?raw=true "Title")
 # Getting Started
 
 ### Reference Documentation
