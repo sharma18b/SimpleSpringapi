@@ -30,4 +30,31 @@ public class MyController{
     {
         return this.courseService.addCourse(course);
     }
+
+    // some extra from
+    @GetMapping("/")
+    public String home1()
+    {
+        String str
+                = "<html><body><font color=\"green\">"
+                + "<h1>WELCOME</h1>"
+                + this.courseService.getCourses().toString()
+                + "</font></body></html>";
+        return str;
+    }
+
+    // Another syntax to implement a
+    // GET method
+    @RequestMapping(
+            method = { RequestMethod.GET },
+            value = { "/gfg" })
+
+    public String info()
+    {
+        String str2
+                = "<html><body><font color=\"green\">"
+                + "<h2>Hello I am testing this Application"
+                + "</h2></font></body></html>";
+        return str2;
+    }
 }
