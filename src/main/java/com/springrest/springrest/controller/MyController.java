@@ -4,6 +4,8 @@ package com.springrest.springrest.controller;
 import com.springrest.springrest.entities.Course;
 import com.springrest.springrest.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,10 +23,12 @@ public class MyController{
     public List<Course> getCourses(){
         return this.courseService.getCourses();
     }
+    // get a specific course
     @GetMapping("/courses/{courseId}")
     public Course getCourse(@PathVariable String courseId){
         return this.courseService.getCourse(Long.parseLong(courseId));
     }
+    // add a new course
     @PostMapping("/courses")
     public Course addCourse(@RequestBody Course course)
     {
@@ -43,11 +47,34 @@ public class MyController{
         return str;
     }
 
+    // update details of a specific course
+    @PutMapping("/courses")
+    public Course updateCourse(@RequestBody Course course)
+    {
+        return this.courseService.updateCourse(course);
+
+    }
+
+    // delete a course
+    @DeleteMapping("/courses/{courseId}")
+    public ResponseEntity<HttpStatus> deleteCourse(@PathVariable String courseId){
+        // tried to learn new approach sending exceptions
+        try {
+            this.courseService.deleteCourse(Long.parseLong(courseId));
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch(Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
     // Another syntax to implement a
     // GET method
     @RequestMapping(
             method = { RequestMethod.GET },
-            value = { "/gfg" })
+            value = { "/msg" })
 
     public String info()
     {
