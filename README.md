@@ -1,5 +1,11 @@
 # SimpleSpringapi
 A simple Spring application to complete basic get and post request
+here are some ss of the final app that was created
+![Alt text](https://github.com/sharma18b/SimpleSpringapi/blob/fnl_app_with_swagger_ui/screenshots/run.png?raw=true "Title")
+![Alt text](https://github.com/sharma18b/SimpleSpringapi/blob/fnl_app_with_swagger_ui/screenshots/homepage.png?raw=true "Title123")
+![Alt text](https://github.com/sharma18b/SimpleSpringapi/blob/fnl_app_with_swagger_ui/screenshots/getreq.png?raw=true "Title")
+![Alt text](https://github.com/sharma18b/SimpleSpringapi/blob/fnl_app_with_swagger_ui/screenshots/triedgetreq.png?raw=true "Title")
+![Alt text](https://github.com/sharma18b/SimpleSpringapi/blob/fnl_app_with_swagger_ui/screenshots/delete.png?raw=true "Title")
 
 # Getting Started
 
