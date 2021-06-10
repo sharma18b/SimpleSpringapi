@@ -3,8 +3,13 @@ package com.springrest.springrest.services;
 import com.springrest.springrest.dao.CourseDao;
 import com.springrest.springrest.entities.Course;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,59 +19,55 @@ public class CourseServiceImpl implements CourseService {
     // old way
     //public List<Course> list;
     @Autowired
+    private JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+    @Bean
+    public DataSource getDataSource() {
+        String url = "jdbc:mysql://localhost:3306/hell";
+        String username = "root";
+        String password = "1904";
+        DataSource dataSource = new DriverManagerDataSource(url,username,password);
+        return dataSource;
+    }
+
     private CourseDao courseDao;
+    private final String SQL_FIND_COURSE = "select * from course where id = ?";
+    private final String SQL_DELETE_COURSE = "delete from course where id = ?";
+    private final String SQL_UPDATE_COURSE = "update course set title = ?, description = ?, age  = ? where id = ?";
+    private final String SQL_INSERT_COURSE = "insert into course(id, title, description) values(?,?,?)";
+
 
     public CourseServiceImpl(){
-//        list = new ArrayList<>();
-//        list.add(new Course(145,"Plural Sight Java","this is a simple test course"));
-//        list.add(new Course(146,"PluralSight Spring Boot  Java","this is another simple test course"));
-
     }
+
     @Override
     public List<Course> getCourses() {
-
-        //return list;
-        return courseDao.findAll();
+        String sql = "select * from course";
+        List<Course> courses = jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Course.class));
+        return courses;
     }
     @Override
     public Course getCourse(long courseId){
-//        Course c = null;
-//        for (Course course : list)
-//        {
-//            if (course.getId() == courseId)
-//            {
-//                c = course;
-//                break;
-//            }
-//        }
-//        return c;
-        return courseDao.getOne(courseId);
+        String sql = "select * from course where id = ?";
+        return (Course) jdbcTemplate.queryForObject(sql,new Object[]{courseId},new BeanPropertyRowMapper<>(Course.class));
     }
 
     @Override
     public Course addCourse(Course course) {
-        //list.add(course);
-        courseDao.save(course);
+        String sql = "insert into course(id, title, description) values(?,?,?)";
+        jdbcTemplate.update(sql,course.getId(),course.getTitle(),course.getDescription());
         return course;
     }
 
     @Override
     public Course updateCourse(Course course) {
-//        list.forEach(e -> {
-//            if (e.getId() == course.getId())
-//            {
-//                e.setTitle(course.getTitle());
-//                e.setDescription(course.getDescription());
-//            }
-//        });
-        courseDao.save(course);
+        String sql = "update course set title = ?, description = ? where id = ?";
+        jdbcTemplate.update(sql,course.getTitle(),course.getDescription(),course.getId());
         return course;
     }
 
     @Override
     public void deleteCourse(long parseLong) {
-        Course entity = courseDao.getOne(parseLong);
-        courseDao.delete(entity);
-        //list = this.list.stream().filter(e -> e.getId() != parseLong).collect(Collectors.toList());
+        String sql = "delete from course where id = ?";
+        jdbcTemplate.update(sql,parseLong);
     }
 }
