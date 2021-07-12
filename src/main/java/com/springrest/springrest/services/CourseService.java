@@ -14,4 +14,6 @@ public interface CourseService {
     Course updateCourse(Course course);
 
     void deleteCourse(long parseLong);
+
+    String getWelcomeMessage();
 }

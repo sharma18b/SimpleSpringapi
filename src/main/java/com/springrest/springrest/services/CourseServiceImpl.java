@@ -22,7 +22,7 @@ public class CourseServiceImpl implements CourseService {
     private JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
     @Bean
     public DataSource getDataSource() {
-        String url = "jdbc:mysql://localhost:3306/hell";
+        String url = "jdbc:mysql://localhost:3306/db1";
         String username = "root";
         String password = "1904";
         DataSource dataSource = new DriverManagerDataSource(url,username,password);
@@ -69,5 +69,9 @@ public class CourseServiceImpl implements CourseService {
     public void deleteCourse(long parseLong) {
         String sql = "delete from course where id = ?";
         jdbcTemplate.update(sql,parseLong);
+    }
+    @Override
+    public String getWelcomeMessage() {
+        return "Hello World!";
     }
 }

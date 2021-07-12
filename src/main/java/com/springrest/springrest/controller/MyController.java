@@ -37,14 +37,8 @@ public class MyController{
 
     // some extra from
     @GetMapping("/")
-    public String home1()
-    {
-        String str
-                = "<html><body><font color=\"green\">"
-                + "<h1>WELCOME</h1>"
-                + this.courseService.getCourses().toString()
-                + "</font></body></html>";
-        return str;
+    public @ResponseBody String greeting() {
+        return this.courseService.getWelcomeMessage();
     }
 
     // update details of a specific course
