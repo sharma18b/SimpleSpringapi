@@ -2,6 +2,7 @@ package com.springrest.springrest.services;
 
 import com.springrest.springrest.dao.CourseDao;
 import com.springrest.springrest.entities.Course;
+import com.springrest.springrest.entities.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -10,9 +11,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -45,6 +44,14 @@ public class CourseServiceImpl implements CourseService {
         List<Course> courses = jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Course.class));
         return courses;
     }
+
+    @Override
+    public List<Product> getProducts() {
+        String sql = "select * from product";
+        List<Product> products = jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Product.class));
+        return products;
+    }
+
     @Override
     public Course getCourse(long courseId){
         String sql = "select * from course where id = ?";

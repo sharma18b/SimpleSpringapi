@@ -2,6 +2,7 @@ package com.springrest.springrest.controller;
 
 //import org.springframework.stereotype.Controller;
 import com.springrest.springrest.entities.Course;
+import com.springrest.springrest.entities.Product;
 import com.springrest.springrest.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,11 @@ public class MyController{
     @GetMapping("/courses")
     public List<Course> getCourses(){
         return this.courseService.getCourses();
+    }
+
+    @GetMapping("/products")
+    public List<Product> getProducts(){
+        return this.courseService.getProducts();
     }
     // get a specific course
     @GetMapping("/courses/{courseId}")
