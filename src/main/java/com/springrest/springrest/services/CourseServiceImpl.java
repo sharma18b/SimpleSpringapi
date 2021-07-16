@@ -74,7 +74,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void deleteCourse(long parseLong) {
-        String sql = "delete from course where id = ?";
+        String sql = "delete from course where id = ?" ;
         jdbcTemplate.update(sql,parseLong);
     }
     @Override
