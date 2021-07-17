@@ -10,11 +10,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin("*")
 @RestController
 public class MyController{
     @Autowired
     private CourseService courseService;
+
+
+    @GetMapping("/products")
+    public List<Product> getProducts(){
+        return this.courseService.getProducts();
+    }
+
+    @GetMapping("/products/{productId}")
+    public Product getProduct(@PathVariable String productId){
+        return this.courseService.getProduct(Integer.parseInt(productId));
+    }
+    @PostMapping("/products")
+    public Product addProduct(@RequestBody Product product)
+    {
+        return this.courseService.addProduct(product);
+    }
     @GetMapping("/home")
     public String home(){
         return "this is home page";
@@ -23,11 +39,6 @@ public class MyController{
     @GetMapping("/courses")
     public List<Course> getCourses(){
         return this.courseService.getCourses();
-    }
-
-    @GetMapping("/products")
-    public List<Product> getProducts(){
-        return this.courseService.getProducts();
     }
     // get a specific course
     @GetMapping("/courses/{courseId}")

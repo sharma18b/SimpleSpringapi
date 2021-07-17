@@ -19,6 +19,7 @@ public class CourseServiceImpl implements CourseService {
     //public List<Course> list;
     @Autowired
     private JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
     @Bean
     public DataSource getDataSource() {
         String url = "jdbc:mysql://localhost:3306/db1";
@@ -51,7 +52,18 @@ public class CourseServiceImpl implements CourseService {
         List<Product> products = jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Product.class));
         return products;
     }
+    @Override
+    public Product getProduct(int productId){
+        String sql = "select * from product where id = ?";
+        return (Product) jdbcTemplate.queryForObject(sql,new Object[]{productId},new BeanPropertyRowMapper<>(Product.class));
+    }
 
+    @Override
+    public Product addProduct(Product product) {
+        String sql = "insert into product(productId, productName,productCode, description,price,releaseDate,starRating,imageUrl) values(?,?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql,product.getProductId(),product.getProductName(),product.getProductCode(),product.getDescription(),product.getPrice(),product.getReleaseDate(),product.getStarRating(),product.getImageUrl());
+        return product;
+    }
     @Override
     public Course getCourse(long courseId){
         String sql = "select * from course where id = ?";
